@@ -79,11 +79,6 @@ int main(int argc, char** argv)
 		pD2[i] = -1.0 * i;
 	}
 
-	auto func = [](double d1, double d2){ return d1 + d2; };
-	double res1 = Pointer_Func(uSize, pD1, pD2, func);
-	double res2 = STL_Func(uSize, pD1, pD2, CAdd());
-	double res3 = Pointer_Func(uSize, pD1, pD2, func);
-
 	RunTest(uTimes, [&]()
 	{
 		return Templeat_Func(uSize, pD1, pD2, [](double d1, double d2){ return d1 + d2; });
