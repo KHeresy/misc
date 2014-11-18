@@ -1,11 +1,11 @@
-// Example to display OpenNI point cloud with OpenGL
+// Example to display multiple OpenNI device in point cloud with OpenGL
 //
 // 		by Heresy
 // 		http://kheresy.wordpress.com
 //
-// version 1.00 @2013/03/08
+// version 1.00 @2014/11/18
 
-// STL Header
+// Standard Header
 #include <iostream>
 #include <vector>
 
@@ -15,6 +15,7 @@
 // OpenNI Header
 #include <OpenNI.h>
 
+// helper header
 #include "../../common/OpenGLCamera.h"
 
 // namespace
@@ -119,6 +120,7 @@ void display()
 	// draw points
 	glPointSize(1.0f);
 
+	// for each device
 	for (vector<CDevice*>::iterator itDevice = g_vDevices.begin(); itDevice != g_vDevices.end(); ++itDevice)
 	{
 		CDevice& rDevice = **itDevice;
@@ -135,6 +137,7 @@ void display()
 			{
 				const RGB888Pixel* pColorArray = static_cast<const RGB888Pixel*>(vfColorFrame.getData());
 
+				// apply transform matrix
 				glPushMatrix();
 				glMultMatrixd(rDevice.aTransformation);
 
@@ -284,7 +287,8 @@ int main( int argc, char** argv )
 		CDevice* pDevWin = new CDevice(aDeviceList[i].getUri());
 		if (pDevWin->mColorStream.isValid() && pDevWin->mDepthStream.isValid())
 		{
-			pDevWin->aTransformation[12] = i * 1000;
+			// appleytest matrix
+			pDevWin->aTransformation[12] = i * -1000;
 			g_vDevices.push_back(pDevWin);
 		}
 	}
