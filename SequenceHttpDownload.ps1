@@ -1,9 +1,16 @@
-param( $OutPath, $SourceUrl, $FileNum, $FileName = "{0:000}.jpg", $StartNum = 1 )
+param( $SourceUrl, $FileNum, $OutPath, $FileName = "{0:000}.jpg", $StartNum = 1 )
 
-new-item $OutPath -itemtype directory
+$OutDir = new-item $OutPath -itemtype directory
+
+$OutPath = $OutPath -replace "\[", "``["
+$OutPath = $OutPath -replace "\]", "``]"
+$OutPath = $OutPath.TrimEnd()
+
+Push-Location -Path "$OutPath"
 for( $Idx = $StartNum; $Idx -le $StartNum + $FileNum - 1; ++ $Idx )
 {
 	$UseName = [string]::Format( $FileName,$Idx)
-	Write-Host $UseName
-	Invoke-WebRequest ($SourceUrl + $UseName) -OutFile ($OutPath + $UseName)
+	Write-Host ($SourceUrl + $UseName)
+	Invoke-WebRequest ($SourceUrl + $UseName) -OutFile $UseName
 }
+Pop-Location
