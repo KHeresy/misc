@@ -38,7 +38,6 @@ int noleak(int iInput)
 	if (iInput > 0)
 		return 1;
 
-	delete pData;
 	return -1;
 }
 
