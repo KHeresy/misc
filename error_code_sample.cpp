@@ -54,27 +54,9 @@ namespace Heresy
 		return std::error_code(static_cast<int>(ec), ErrorCategory::get());
 	}
 
-	void MyFunction(bool bError)
-	{
-		if(bError)
-			throw make_error_code(ErrorCode::ErrorType1);
-	}
-
-	void MyFunction(bool bError, std::error_code& ec)
-	{
-		if(bError)
-			ec = make_error_code(ErrorCode::ErrorType2);
-		else
-			ec = make_error_code(ErrorCode::Success);
-	}
-
-	std::error_code MyFunction2(bool bError)
-	{
-		if (bError)
-			return make_error_code(ErrorCode::ErrorType1);
-		else
-			return make_error_code(ErrorCode::Success);
-	}
+	void MyFunction(bool bError);
+	void MyFunction(bool bError, std::error_code& ec);
+	std::error_code MyFunction2(bool bError);
 }
 
 namespace std
@@ -128,4 +110,29 @@ int main()
 	}
 
 	return 0;
+}
+
+namespace Heresy
+{
+	void MyFunction(bool bError)
+	{
+		if (bError)
+			throw ErrorCode::ErrorType1;
+	}
+
+	void MyFunction(bool bError, std::error_code& ec)
+	{
+		if (bError)
+			ec = ErrorCode::ErrorType2;
+		else
+			ec = ErrorCode::Success;
+	}
+
+	std::error_code MyFunction2(bool bError)
+	{
+		if (bError)
+			return ErrorCode::ErrorType1;
+		else
+			return ErrorCode::Success;
+	}
 }
