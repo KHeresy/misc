@@ -117,7 +117,7 @@ namespace Heresy
 	void MyFunction(bool bError)
 	{
 		if (bError)
-			throw ErrorCode::ErrorType1;
+			throw make_error_code(ErrorCode::ErrorType1);
 	}
 
 	void MyFunction(bool bError, std::error_code& ec)
