@@ -15,8 +15,6 @@ namespace Heresy
 	class ErrorCategory : public std::error_category
 	{
 	public:
-		ErrorCategory() = default;
-
 		// map ErrorCode to detail message text
 		std::string message(int c) const override
 		{
