@@ -43,9 +43,7 @@ template<typename TEnumType>
 typename std::enable_if_t<support_bitwise_enum<TEnumType>::value, TEnumType>
 operator&=(TEnumType& left, TEnumType right)
 {
-	left = static_cast<TEnumType>(
-		static_cast<std::underlying_type_t<TEnumType>>(left) &
-		static_cast<std::underlying_type_t<TEnumType>>(right));
+	left = left & right;
 	return left;
 }
 
@@ -53,9 +51,7 @@ template<typename TEnumType>
 typename std::enable_if_t<support_bitwise_enum<TEnumType>::value, TEnumType>
 operator|=(TEnumType& left, TEnumType right)
 {
-	left = static_cast<TEnumType>(
-		static_cast<std::underlying_type_t<TEnumType>>(left) |
-		static_cast<std::underlying_type_t<TEnumType>>(right));
+	left = left | right;
 	return left;
 }
 
@@ -63,8 +59,6 @@ template<typename TEnumType>
 typename std::enable_if_t<support_bitwise_enum<TEnumType>::value, TEnumType>
 operator^=(TEnumType& left, TEnumType right)
 {
-	left = static_cast<TEnumType>(
-		static_cast<std::underlying_type_t<TEnumType>>(left) ^
-		static_cast<std::underlying_type_t<TEnumType>>(right));
+	left = left ^ right;
 	return left;
 }
